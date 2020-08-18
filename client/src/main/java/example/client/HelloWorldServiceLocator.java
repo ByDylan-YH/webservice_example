@@ -7,7 +7,12 @@
 
 package example.client;
 
-public class HelloWorldServiceLocator extends org.apache.axis.client.Service implements example.client.HelloWorldService {
+import org.apache.axis.client.Service;
+
+import javax.xml.namespace.QName;
+import javax.xml.rpc.ServiceException;
+
+public class HelloWorldServiceLocator extends Service implements HelloWorldService {
 
     public HelloWorldServiceLocator() {
     }
@@ -17,25 +22,25 @@ public class HelloWorldServiceLocator extends org.apache.axis.client.Service imp
         super(config);
     }
 
-    public HelloWorldServiceLocator(java.lang.String wsdlLoc, javax.xml.namespace.QName sName) throws javax.xml.rpc.ServiceException {
+    public HelloWorldServiceLocator(String wsdlLoc, QName sName) throws ServiceException {
         super(wsdlLoc, sName);
     }
 
     // Use to get a proxy class for HelloWorld
-    private java.lang.String HelloWorld_address = "http://localhost:8080/services/HelloWorld";
+    private String HelloWorld_address = "http://localhost:8080/services/HelloWorld";
 
-    public java.lang.String getHelloWorldAddress() {
+    public String getHelloWorldAddress() {
         return HelloWorld_address;
     }
 
     // The WSDD service name defaults to the port name.
-    private java.lang.String HelloWorldWSDDServiceName = "HelloWorld";
+    private String HelloWorldWSDDServiceName = "HelloWorld";
 
-    public java.lang.String getHelloWorldWSDDServiceName() {
+    public String getHelloWorldWSDDServiceName() {
         return HelloWorldWSDDServiceName;
     }
 
-    public void setHelloWorldWSDDServiceName(java.lang.String name) {
+    public void setHelloWorldWSDDServiceName(String name) {
         HelloWorldWSDDServiceName = name;
     }
 
@@ -50,7 +55,7 @@ public class HelloWorldServiceLocator extends org.apache.axis.client.Service imp
         return getHelloWorld(endpoint);
     }
 
-    public example.client.HelloWorld_PortType getHelloWorld(java.net.URL portAddress) throws javax.xml.rpc.ServiceException {
+    public example.client.HelloWorld_PortType getHelloWorld(java.net.URL portAddress) {
         try {
             example.client.HelloWorldSoapBindingStub _stub = new example.client.HelloWorldSoapBindingStub(portAddress, this);
             _stub.setPortName(getHelloWorldWSDDServiceName());
@@ -61,7 +66,7 @@ public class HelloWorldServiceLocator extends org.apache.axis.client.Service imp
         }
     }
 
-    public void setHelloWorldEndpointAddress(java.lang.String address) {
+    public void setHelloWorldEndpointAddress(String address) {
         HelloWorld_address = address;
     }
 
@@ -78,7 +83,7 @@ public class HelloWorldServiceLocator extends org.apache.axis.client.Service imp
                 return _stub;
             }
         }
-        catch (java.lang.Throwable t) {
+        catch (Throwable t) {
             throw new javax.xml.rpc.ServiceException(t);
         }
         throw new javax.xml.rpc.ServiceException("There is no stub implementation for the interface:  " + (serviceEndpointInterface == null ? "null" : serviceEndpointInterface.getName()));
@@ -93,7 +98,7 @@ public class HelloWorldServiceLocator extends org.apache.axis.client.Service imp
         if (portName == null) {
             return getPort(serviceEndpointInterface);
         }
-        java.lang.String inputPortName = portName.getLocalPart();
+        String inputPortName = portName.getLocalPart();
         if ("HelloWorld".equals(inputPortName)) {
             return getHelloWorld();
         }
@@ -121,7 +126,7 @@ public class HelloWorldServiceLocator extends org.apache.axis.client.Service imp
     /**
     * Set the endpoint address for the specified port name.
     */
-    public void setEndpointAddress(java.lang.String portName, java.lang.String address) throws javax.xml.rpc.ServiceException {
+    public void setEndpointAddress(String portName, String address) throws javax.xml.rpc.ServiceException {
         
 if ("HelloWorld".equals(portName)) {
             setHelloWorldEndpointAddress(address);
@@ -135,7 +140,7 @@ if ("HelloWorld".equals(portName)) {
     /**
     * Set the endpoint address for the specified port name.
     */
-    public void setEndpointAddress(javax.xml.namespace.QName portName, java.lang.String address) throws javax.xml.rpc.ServiceException {
+    public void setEndpointAddress(javax.xml.namespace.QName portName, String address) throws javax.xml.rpc.ServiceException {
         setEndpointAddress(portName.getLocalPart(), address);
     }
 
